@@ -357,3 +357,8 @@ The code is built upon the below repositories, we thank all the contributors for
 **This work is intended for research purposes only. The authors do not encourage or endorse the use of this codebase for commercial applications. The code is provided "as is" without any warranties, and users assume all responsibility for its use.**
 
 Tested Environment: MacOS, Linux
+
+## Final Command
+**Use the below mentioned command in anaconda prompt to generate the desired result**
+python evaluate.py --model_text "gemini/gemini-2.0-flash-001" --model_video "gemini/gemini-2.0-flash-exp" --model_image "gemini/gemini-2.0-flash-001" --eval_type "all" --file_path "InputVideoFolderName" --output_folder "OutputFolderName" --retry_limit 1 --combine --bulk_evaluate --use_parent_folder_as_topic --max_workers 2
+**Give appropriate folder name for InputVideoFolderName and OutputFolderName**
