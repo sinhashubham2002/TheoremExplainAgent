@@ -713,21 +713,18 @@ if __name__ == "__main__":
         verbose = False
     planner_model = LiteLLMWrapper(
         model_name=args.model,
-        temperature=0.7,
         print_cost=True,
         verbose=verbose,
         use_langfuse=args.use_langfuse
     )
     helper_model = LiteLLMWrapper(
         model_name=args.helper_model if args.helper_model else args.model, # Use helper_model if provided, else planner_model
-        temperature=0.7,
         print_cost=True,
         verbose=verbose,
         use_langfuse=args.use_langfuse
     )
     scene_model = LiteLLMWrapper( # Initialize scene_model separately
         model_name=args.model,
-        temperature=0.7,
         print_cost=True,
         verbose=verbose,
         use_langfuse=args.use_langfuse

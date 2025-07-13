@@ -18,7 +18,6 @@ class LiteLLMWrapper:
     def __init__(
         self,
         model_name: str = "gpt-4-vision-preview",
-        temperature: float = 0.7,
         print_cost: bool = False,
         verbose: bool = False,
         use_langfuse: bool = True,
@@ -28,13 +27,11 @@ class LiteLLMWrapper:
         
         Args:
             model_name: Name of the model to use (e.g. "azure/gpt-4", "vertex_ai/gemini-pro")
-            temperature: Temperature for completion
             print_cost: Whether to print the cost of the completion
             verbose: Whether to print verbose output
             use_langfuse: Whether to enable Langfuse logging
         """
         self.model_name = model_name
-        self.temperature = temperature
         self.print_cost = print_cost
         self.verbose = verbose
         self.accumulated_cost = 0
@@ -153,37 +150,27 @@ class LiteLLMWrapper:
 
         try:
             # if it's openai o series model, set temperature to None and reasoning_effort to "medium"
+            print(f"Model name = {self.model_name}")
             if (re.match(r"^o\d+.*$", self.model_name) or re.match(r"^openai/o.*$", self.model_name)):
-                self.temperature = None
                 self.reasoning_effort = "medium"
                 response = completion(
                     model=self.model_name,
                     messages=formatted_messages,
-                    temperature=self.temperature,
-                    reasoning_effort=self.reasoning_effort,
-                    metadata=metadata,
-                    max_retries=99
+                    reasoning_effort=self.reasoning_effort
                 )
+                print(f"Got this reponse from model : {response}")          
+                content = response.choices[0].message.content
+                return content
             else:
+                print("Before Completion Code")
                 response = completion(
                     model=self.model_name,
-                    messages=formatted_messages,
-                    temperature=self.temperature,
-                    metadata=metadata,
-                    max_retries=99
+                    messages=formatted_messages
                 )
-            if self.print_cost:
-                # pass your response from completion to completion_cost
-                cost = completion_cost(completion_response=response)
-                formatted_string = f"Cost: ${float(cost):.10f}"
-                # print(formatted_string)
-                self.accumulated_cost += cost
-                print(f"Accumulated Cost: ${self.accumulated_cost:.10f}")
-                
-            content = response.choices[0].message.content
-            if content is None:
-                print(f"Got null response from model. Full response: {response}")
-            return content
+                print("After Completion Code")
+                print(f"Got this reponse from model : {response}")          
+                content = response.choices[0].message.content
+                return content
         
         except Exception as e:
             print(f"Error in model completion: {e}")

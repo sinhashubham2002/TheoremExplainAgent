@@ -381,17 +381,14 @@ def main():
     args = parser.parse_args()
 
     # Initialize separate models
-    text_model = LiteLLMWrapper(
-        model_name=args.model_text,
-        temperature=0.0,
+    text_model = GeminiWrapper(
+        model_name=args.model_text
     )
     video_model = GeminiWrapper(
-        model_name=args.model_video,
-        temperature=0.0,
+        model_name=args.model_video
     )
-    image_model = LiteLLMWrapper(
-        model_name=args.model_image,
-        temperature=0.0,
+    image_model = GeminiWrapper(
+        model_name=args.model_image
     )
 
     models = {

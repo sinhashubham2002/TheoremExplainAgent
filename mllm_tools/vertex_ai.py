@@ -14,7 +14,6 @@ class VertexAIWrapper:
     def __init__(
         self,
         model_name: str = "gemini-1.5-pro",
-        temperature: float = 0.7,
         print_cost: bool = False,
         verbose: bool = False,
         use_langfuse: bool = False
@@ -23,13 +22,11 @@ class VertexAIWrapper:
         
         Args:
             model_name: Name of the model to use (e.g. "gemini-1.5-pro")
-            temperature: Temperature for generation between 0 and 1
             print_cost: Whether to print the cost of the completion
             verbose: Whether to print verbose output
             use_langfuse: Whether to enable Langfuse logging
         """
         self.model_name = model_name
-        self.temperature = temperature
         self.print_cost = print_cost
         self.verbose = verbose
         
@@ -78,7 +75,6 @@ class VertexAIWrapper:
         response = self.model.generate_content(
             parts,
             generation_config={
-                "temperature": self.temperature,
                 "top_p": 0.95,
             }
         )
