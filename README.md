@@ -358,7 +358,14 @@ The code is built upon the below repositories, we thank all the contributors for
 
 Tested Environment: MacOS, Linux
 
-## Final Command
+## How to Run
+
+First generate the transcript srt file using SrtFileGeneration in VideoToSrtFile folder.
+
 **Use the below mentioned command in anaconda prompt to generate the desired result**
+
 python evaluate.py --model_text "gemini/gemini-2.0-flash-001" --model_video "gemini/gemini-2.0-flash-exp" --model_image "gemini/gemini-2.0-flash-001" --eval_type "all" --file_path "InputVideoFolderName" --output_folder "OutputFolderName" --retry_limit 1 --combine --bulk_evaluate --use_parent_folder_as_topic --max_workers 2
+
 **Give appropriate folder name for InputVideoFolderName and OutputFolderName**
+
+
